@@ -146,7 +146,7 @@ try {
       id: req.params.id,
     }
   });
-  res.jscon(deleteProduct);
+  res.json(deleteProduct);
 } catch (e) {
   res.json(e);
 }
