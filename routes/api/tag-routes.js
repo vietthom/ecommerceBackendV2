@@ -8,11 +8,14 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Product data
   try {
     const getTags= await Tag.findAll({
-      include:[{model: Product, ProductTag}]
+      include:[
+        {model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']}
+      ]
     });
-    res.json(getTags);
+    res.status(200).json(getTags);
   } catch (e) {
-    res.json(e)
+    res.status(400).json(e);
   }
 });
 
@@ -20,44 +23,42 @@ router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   try {
-    const getTagById= await Tag.findByPk(req.params.id, {
-      include: [{model: Product, Tag }]
+    const getTagById= await Tag.findByPk(req.params.id, 
+      {
+      include: [
+        {model: Product, 
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id'] }
+      ]
     });
-    res.json(getTagById);
+    res.status(200).json(getTagById);
   } catch (e) {
-    res.json(e);
+    res.status(400).json(e);
   }
 });
 
 router.post('/', async (req, res) => {
   // create a new tag
-  const {id, tag_name} = req.body;
   try {
-    const newTag= await Tag.create({
-      id,
-      tag_name,
-    });
-    res.json(newTag);
+    const newTag= await Tag.create(req.body);
+    res.status(200).json(newTag);
   } catch (e) {
-    res.json(e);
+    res.status(400).json(e);
   }
 });
 
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
-  const {id, tag_name,}= req.body;
   try {
-    await Tag.update({
-      id, tag_name,
-    },{
+    await Tag.update(req.body,
+      {
       where: {
         id: req.params.id,
       },
     });
     const updateTag= await Tag.findByPk(req.params.id);
-    res.json(updateTag);
+    res.status(200).json(updateTag);
   } catch (e) {
-    res.json(e);
+    res.status(400).json(e);
   }
 });
 
@@ -67,12 +68,12 @@ router.delete('/:id', async (req, res) => {
     const deleteTag = await Tag.findByPk(req.params.id);
     await Tag.destroy({
       where:{
-        id: req.param.id,
+        id: req.params.id,
       }
     });
-    res.json(deleteTag);
+    res.status(200).json(deleteTag);
   } catch (e) {
-    res.json(e);
+    res.status(400).json(e);
   }
 });
 

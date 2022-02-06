@@ -6,51 +6,58 @@ const { Category, Product } = require('../../models');
 
 router.get('/', async (req, res) => {
     try {
-        const categories = await Category.findAll();
-        res.json(categories);
+        const categories = await Category.findAll({
+          include: [
+            {model: Product, 
+              attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
+            }]
+        });
+        res.status(200).json(categories);
     } catch (e) {
-        res.json(e);
+        res.status(400).json(e);
     }
 });
 
 router.get('/:id', async (req, res) => {
     try {
-        const categories = await Category.findByPk(req.params.id);
-        res.json(categories);
+        const categories = await Category.findByPk(req.params.id, 
+          {include: 
+            [
+              {model: Product, 
+                attribute: ['id', 'product_name', 'price', 'stock']
+              }
+            ]
+          }
+          );
+        res.status(200).json(categories);
     } catch (e) {
-        res.json(e);
+        res.status(400).json(e);
     }
 });
 
 router.post('/', async (req, res) => {
   // create a new category
-  const {category_name} = req.body;
   try {
-    const newCategory= await Category.create({
-      category_name,
-    });
-    res.json(newCategory);
+    const newCategory= await Category.create(req.body);
+    res.status(200).json(newCategory);
   } catch (e) {
-    res.json(e);
+    res.status(400).json(e);
   }
 });
 
 router.put('/:id', async (req, res) => {
   // update a category by its `id` value
-  const {id, category_name}=req.body;
   try {
-    await Category.update({
-      id, category_name,
-    },
+    await Category.update(req.body,
     {
       where: { 
         id: req.params.id,
       }
     });
     const updateCategory = await Category.findByPk(req.params.id);
-    res.json(updateCategory);
+    res.status(200).json(updateCategory);
   } catch (e) {
-    res.json(e);
+    res.status(400).json(e);
   }
 });
 
@@ -63,9 +70,9 @@ router.delete('/:id', async (req, res) => {
         id: req.params.id,
       }
     });
-    res.json(deleteCategory);
+    res.status(200).json(deleteCategory);
   } catch (e) {
-    res.json(e);
+    res.status(400).json(e);
   }
 });
 
