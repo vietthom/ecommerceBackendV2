@@ -12,12 +12,12 @@ Category.hasMany(Product,{
     onDelete: 'SET NULL'
 });
 
-Product.belongsTo(Tag,{
+Product.belongsToMany(Tag,{
     through: ProductTag,
     foreignKey:'product_id',
 });
 
-Tag.belongsTo(Product,{
+Tag.belongsToMany(Product,{
     through: ProductTag,
     foreignKey:'tag_id',
 });
