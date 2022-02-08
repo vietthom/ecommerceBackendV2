@@ -19,4 +19,4 @@ https://youtu.be/oSjMObjbxcg
 None
 
 ## Questions
-If you have any questions about this projects, please contact me directly at thomle0418@gmail.com. You can view more of my projects at .
+If you have any questions about this projects, please contact me directly at thomle0418@gmail.com. You can view more of my projects at https://github.com/thomle0418.
