@@ -7,4 +7,16 @@ Internet retail, also known as **e-commerce**, is the largest sector of the elec
 ## Installation Instructions
 The user should clone the repository from GitHub. This application requires Node.js, Express.js, and Sequelize. To connect to the database run mysql `-u root -p` and enter password from .env file. Then source the schema.sql. To seed the file run `npm run seed`. Finally to connect to the server run `npm start`.
 
-## Demo 
+## Demo Videos
+
+### Installion Demo
+https://youtu.be/7Me5l5gabhg
+
+### CRUD Operations Demo
+https://youtu.be/oSjMObjbxcg
+
+## Contributors
+None
+
+## Questions
+If you have any questions about this projects, please contact me directly at thomle0418@gmail.com. You can view more of my projects at .
