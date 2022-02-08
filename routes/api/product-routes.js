@@ -6,7 +6,7 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // get all products
 router.get('/', async (req, res) => {
   try {
-    const getProducts = await Product.findAll({
+    const getProducts = await Product.findAll(req.body, {
       include: [
         {
           model: Category,
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     {
       moodel: Tag,
       attribute: ['tag_name'],
-    }
+    },
   ]
     });
     res.status(200).json(getProducts);
